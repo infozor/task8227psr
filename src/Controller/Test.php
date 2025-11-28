@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types = 1)
+	;
 
 namespace Ion\Task8227psr\Controller;
 
@@ -18,5 +19,4 @@ class Test
 	{
 		return $a + $b;
 	}
-
 }
