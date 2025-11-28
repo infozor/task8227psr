@@ -17,6 +17,8 @@ class ConvertToShort
 		
 		$this->oauth_token = $this->config['yandex']['oauth_token'];
 		$this->cloud_folders = $this->config['yandex']['cloud_folders'];
+		
+
 	}
 
 	public function do_it()
