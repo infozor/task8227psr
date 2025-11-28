@@ -1,0 +1,16 @@
+{
+    "name": "ion/task8227psr",
+    "description": "My PSR-task8227",
+    "autoload": {
+        "psr-4": {
+            "Ion\\Task8227psr\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexander Ionov",
+            "email": "magneticsun@gmail.com"
+        }
+    ],
+    "require": {}
+}
