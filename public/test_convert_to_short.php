@@ -10,7 +10,7 @@ use Ion\Task8227psr\Controller\ConvertToShort;
 
 $ConvertToShort = new ConvertToShort();
 
-// Тестируем простое сложение
+
 $result1 = $ConvertToShort->do_it();
 
 $a = 1;
