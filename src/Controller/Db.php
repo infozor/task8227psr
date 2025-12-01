@@ -6,6 +6,7 @@ namespace Ion\Task8227psr\Controller;
 class Db
 {
 	private $data_bases;
+	private $config;
 	
 	private $conn; // bollard
 	private $conn2; // ViewerClaim
@@ -304,6 +305,46 @@ class Db
 
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
+	}
+	
+	function get_yadv_a_packet_products($params)
+	{
+		// @params
+		//$id = $params['id'];
+		$yadv_packet_id = $params['yadv_packet_id'];
+		
+		/*
+		$good_id = $params['good_id'];
+		$name = $params['name'];
+		$chort_name = $params['chort_name'];
+		$created_at = $params['created_at'];
+		$updated_at = $params['updated_at'];
+		*/
+		
+		$sqlstr = sprintf("
+			SELECT
+              id,
+			  yadv_packet_id,
+			  good_id,
+			  name,
+			  chort_name,
+			  created_at,
+			  updated_at
+				
+			FROM
+			  public.yadv_a_packet_products
+			WHERE
+			  yadv_packet_id = %s
+			ORDER BY
+			  id
+            --LIMIT 5
+				
+			", $yadv_packet_id);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+		$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $rows;
 	}
 }
 

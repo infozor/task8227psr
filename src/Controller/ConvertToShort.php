@@ -43,6 +43,10 @@ class ConvertToShort
 		$Dialogues = new Dialogues();
 		$Dialog = $Dialogues->get_data('dialog1.json');
 		
+		$Promt = $Dialogues->get_promt('promt2.json');
+		
+		array_push($Dialog['messages'], $Promt);
+		
 		$messages = json_encode($Dialog['messages']);
 		
 		
@@ -98,5 +102,35 @@ class ConvertToShort
 		
 		$a = 1;
 		
+	}
+	
+	/**
+	 * @author Ionov AV
+	 * @дата:    01.12.2025
+	 * @время: 16:59 
+	 * Описание функции
+	 * надо взять список продуктов пакета чтобы потом дополнить shorts
+	 */
+	public function get_packet($params)
+	{
+		$Db = new Db();
+		
+		
+		// @set params
+		//$params['id'] = 'id';
+		
+		//$params['yadv_packet_id'] = 1;
+		/*
+		$params['good_id'] = 'good_id';
+		$params['name'] = 'name';
+		$params['chort_name'] = 'chort_name';
+		$params['created_at'] = 'created_at';
+		$params['updated_at'] = 'updated_at';
+		*/
+		
+		$rows = $Db->get_yadv_a_packet_products($params);
+		
+		return $rows;
+		//$a = 1;
 	}
 }
