@@ -1,44 +1,37 @@
 <?php
 
-
 namespace Ion\Task8227psr\Controller;
 
 class Db
 {
 	private $data_bases;
 	private $config;
-	
 	private $conn; // bollard
 	private $conn2; // ViewerClaim
 	private $conn3; // backoffice
 	function __construct()
 	{
-		
 		$Config = new Config();
 		$this->config = $Config->get_data();
-		
+
 		$db_servername = $this->data_bases = $this->config['data_bases']['db1']['db_servername'];
 		$db_username = $this->data_bases = $this->config['data_bases']['db1']['db_username'];
 		$db_password = $this->data_bases = $this->config['data_bases']['db1']['db_password'];
 		$db_name = $this->data_bases = $this->config['data_bases']['db1']['db_name'];
 		$dbPort = $this->data_bases = $this->config['data_bases']['db1']['dbPort'];
-		
+
 		$conn = new \PDO("pgsql:host=$db_servername;port=$dbPort;dbname=$db_name", $db_username, $db_password);
 		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-		
-		
+
 		$db_name = $this->data_bases = $this->config['data_bases']['db2']['db_name'];
-		
+
 		$conn2 = new \PDO("pgsql:host=$db_servername;port=$dbPort;dbname=$db_name", $db_username, $db_password);
 		$conn2->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-		
 
 		$db_name = $this->data_bases = $this->config['data_bases']['db3']['db_name'];
 		$conn3 = new \PDO("pgsql:host=$db_servername;port=$dbPort;dbname=$db_name", $db_username, $db_password);
 		$conn3->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-		
-		
 		$this->conn = $conn;
 		$this->conn2 = $conn2;
 		$this->conn3 = $conn3;
@@ -306,21 +299,20 @@ class Db
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
 	}
-	
 	function get_yadv_a_packet_products($params)
 	{
 		// @params
 		//$id = $params['id'];
 		$yadv_packet_id = $params['yadv_packet_id'];
-		
+
 		/*
-		$good_id = $params['good_id'];
-		$name = $params['name'];
-		$chort_name = $params['chort_name'];
-		$created_at = $params['created_at'];
-		$updated_at = $params['updated_at'];
-		*/
-		
+		 $good_id = $params['good_id'];
+		 $name = $params['name'];
+		 $chort_name = $params['chort_name'];
+		 $created_at = $params['created_at'];
+		 $updated_at = $params['updated_at'];
+		 */
+
 		$sqlstr = sprintf("
 			SELECT
               id,
@@ -340,11 +332,41 @@ class Db
             --LIMIT 5
 				
 			", $yadv_packet_id);
-		
+
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
 		$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		return $rows;
+	}
+	function update_yadv_a_packet_products($params)
+	{
+		// @params
+		/*
+		$id = $params['id'];
+		$yadv_packet_id = $params['yadv_packet_id'];
+		$good_id = $params['good_id'];
+		$name = $params['name'];
+		$chort_name = $params['chort_name'];
+		$created_at = $params['created_at'];
+		$updated_at = $params['updated_at'];
+		*/
+		
+		$id = $params['id'];
+		$chort_name = $params['chort_name'];
+		
+		$sqlstr = sprintf("
+        UPDATE
+          public.yadv_a_packet_products
+        SET
+			  chort_name = '%s', --chort_name
+			  updated_at = NOW() --updated_at
+        WHERE
+          id = %s
+        ;
+        ", $chort_name, $id);
+
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
 	}
 }
 

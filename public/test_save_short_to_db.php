@@ -12,5 +12,6 @@ $ConvertToShort = new ConvertToShort();
 
 
 $result1 = $ConvertToShort->prepare_short_to_db();
+$result2 = $ConvertToShort->save_short_to_db($result1);
 
 $a = 1;

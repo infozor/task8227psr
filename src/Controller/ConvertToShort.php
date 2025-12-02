@@ -159,11 +159,6 @@ class ConvertToShort
 	 *   }
 	 *
 	 * @uses parseTextToArray() Для разбора текстовых данных
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 * @author [Ваше имя или название команды]
-	 * @copyright [Название компании] [Год]
 	 */
 	public function prepare_short_to_db(): array
 	{
@@ -274,5 +269,79 @@ class ConvertToShort
 		}
 
 		return $result;
+	}
+	
+	public function save_short_to_db_($data)
+	{
+		
+		
+		$Db = new Db();
+		
+		$Db->update_yadv_a_packet_products($params);
+	}
+		
+
+
+	/**
+	 * @author Ionov AV
+	 * @дата:    02.12.2025
+	 * @время: 12:21 
+	 * Описание функции
+	 * Обновляет short_name в таблице на основе данных из $data
+	 * @return array Результат обновления
+	 *
+	 */
+	public function save_short_to_db($data): array
+	{
+		
+		$Db = new Db();
+		
+		// Получаем подготовленные данные
+		//$result = $this->prepare_short_to_db();
+		
+		$result = $data;
+		
+		if (!$result['success']) {
+			return [
+					'success' => false,
+					'message' => 'Не удалось подготовить данные: ' . $result['message'],
+					'updated' => 0,
+					'total' => 0
+			];
+		}
+		
+		$data = $result['data'];
+		$total = count($data);
+		$updated = 0;
+		$errors = [];
+		
+		// Обновляем каждую запись
+		foreach ($data as $item) {
+			try {
+				
+				$updateResult = $Db->update_yadv_a_packet_products([
+						'id' => $item['id'],
+						'chort_name' => $item['short_name']
+				]);
+				
+				if ($updateResult) {
+					$updated++;
+				}
+				
+			} catch (\Exception $e) {
+				$errors[] = [
+						'id' => $item['id'],
+						'error' => $e->getMessage()
+				];
+			}
+		}
+		
+		return [
+				'success' => true,
+				'message' => sprintf('Обновлено %d из %d записей', $updated, $total),
+				'updated' => $updated,
+				'total' => $total,
+				'errors' => $errors
+		];
 	}
 }
