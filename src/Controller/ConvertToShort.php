@@ -108,7 +108,7 @@ class ConvertToShort
 		/*
 		 $params['good_id'] = 'good_id';
 		 $params['name'] = 'name';
-		 $params['chort_name'] = 'chort_name';
+		 $params['short_name'] = 'short_name';
 		 $params['created_at'] = 'created_at';
 		 $params['updated_at'] = 'updated_at';
 		 */
@@ -321,7 +321,7 @@ class ConvertToShort
 				
 				$updateResult = $Db->update_yadv_a_packet_products([
 						'id' => $item['id'],
-						'chort_name' => $item['short_name']
+						'short_name' => $item['short_name']
 				]);
 				
 				if ($updateResult) {

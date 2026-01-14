@@ -274,7 +274,7 @@ class Db
 		$yadv_packet_id = $params['yadv_packet_id'];
 		$good_id = $params['good_id'];
 		$name = $params['name'];
-		$chort_name = $params['chort_name'];
+		$short_name = $params['short_name'];
 
 		$sqlstr = sprintf("
         INSERT INTO
@@ -282,7 +282,7 @@ class Db
         (     yadv_packet_id,
               good_id,
               name,
-              chort_name,
+              short_name,
               created_at,
               updated_at
         )
@@ -290,11 +290,11 @@ class Db
           '%s', -- yadv_packet_id
               '%s', -- good_id
               '%s', -- name
-              '%s', -- chort_name
+              '%s', -- short_name
               NOW(), -- created_at
               NOW() -- updated_at
         );
-        ", $yadv_packet_id, $good_id, $name, $chort_name);
+        ", $yadv_packet_id, $good_id, $name, $short_name);
 
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
@@ -308,7 +308,7 @@ class Db
 		/*
 		 $good_id = $params['good_id'];
 		 $name = $params['name'];
-		 $chort_name = $params['chort_name'];
+		 $short_name = $params['short_name'];
 		 $created_at = $params['created_at'];
 		 $updated_at = $params['updated_at'];
 		 */
@@ -319,7 +319,7 @@ class Db
 			  yadv_packet_id,
 			  good_id,
 			  name,
-			  chort_name,
+			  short_name,
 			  created_at,
 			  updated_at
 				
@@ -346,24 +346,24 @@ class Db
 		$yadv_packet_id = $params['yadv_packet_id'];
 		$good_id = $params['good_id'];
 		$name = $params['name'];
-		$chort_name = $params['chort_name'];
+		$short_name = $params['short_name'];
 		$created_at = $params['created_at'];
 		$updated_at = $params['updated_at'];
 		*/
 		
 		$id = $params['id'];
-		$chort_name = $params['chort_name'];
+		$short_name = $params['short_name'];
 		
 		$sqlstr = sprintf("
         UPDATE
           public.yadv_a_packet_products
         SET
-			  chort_name = '%s', --chort_name
+			  short_name = '%s', --short_name
 			  updated_at = NOW() --updated_at
         WHERE
           id = %s
         ;
-        ", $chort_name, $id);
+        ", $short_name, $id);
 
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
